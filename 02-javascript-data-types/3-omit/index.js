@@ -6,9 +6,14 @@
  */
 export const omit = (obj, ...fields) => {
 
-  let resultObject = obj;
+  const resultObject = {};
 
-  for (let field of fields) {
+  // Копирую объект чтобы избежать изменения объект obj
+  for (const key in obj) {
+    resultObject[key] = obj[key];
+  }
+
+  for (const field of fields) {
     delete resultObject[field];
   }
 
