@@ -6,4 +6,11 @@
  */
 export const omit = (obj, ...fields) => {
 
+  let resultObject = obj;
+
+  for (let field of fields) {
+    delete resultObject[field];
+  }
+
+  return resultObject;
 };
