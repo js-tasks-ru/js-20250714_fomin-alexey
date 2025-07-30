@@ -27,7 +27,7 @@ export default class ColumnChart {
     if (this.link) {
       return `${this.link ? `<a class="column-chart__link" href = ${this.link}">View all</a>` : ''}`
     }
-    return `''`
+    return ''
   }
 
   getColumnProps(data) {
@@ -60,9 +60,16 @@ export default class ColumnChart {
     this.element.remove();    
   }
 
+  createChartCssClass() {
+    if (!this.data.length) {
+      return 'column-chart column-chart_loading';
+    }
+    return 'column-chart';
+  }
+
   createTemplate() {
     return `
-      <div class="column-chart" style="--chart-height: 50">
+      <div class="${this.createChartCssClass()}" style="--chart-height: ${this.chartHeight}">
         <div class="column-chart__title">
           ${this.label}
           ${this.createLinkTemplate()}
@@ -82,10 +89,7 @@ export default class ColumnChart {
   createElement() {
     const element = document.createElement('div');
     element.innerHTML = this.createTemplate();
-
-    const firstElementChild = element.firstElementChild;
-    firstElementChild.classList.add(`column-chart_loading`);
-    return firstElementChild;
+    return element.firstElementChild;
   }
 
   destroy(){
